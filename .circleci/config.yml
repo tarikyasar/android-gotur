@@ -1,8 +1,10 @@
-version: 2.1
+version: 2
 
-orbs:
-  android: circleci/android@1.0.3
-  gcp-cli: circleci/gcp-cli@2.2.0
+defaults:
+  docker:
+    - image: circleci/android:api-28-alpha
+  environment:
+    JVM_OPTS: -Xmx3200m
 
 jobs:
   unit-test:
@@ -18,16 +20,27 @@ jobs:
       - android/save-gradle-cache
       - android/save-build-cache
 
-  say-hello:
-    docker:
-      - image: cimg/base:stable
+  deploy-internal:
+    executor: docker
     steps:
       - checkout
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+          name: Test environment variables
+          command: echo "Firebase App ID -> $FIREBASE_APP_ID" && echo "Firebase Token -> $FIREBASE_TOKEN"
+      - run:
+          name: Install fastlane
+          command: bundle install
+      - run:
+          name: Deploy the app to the internal track
+          command: bundle exec fastlane firebase_app_id:$FIREBASE_APP_ID firebase_token:$FIREBASE_TOKEN
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
 
 workflows:
   android-test-workflow:
     jobs:
-      - unit-test
+      - deploy-internal
