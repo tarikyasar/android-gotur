@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "336988796404",
+    "project_id": "android-gotur",
+    "storage_bucket": "android-gotur.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:336988796404:android:2791f072556e10eb6775a1",
+        "android_client_info": {
+          "package_name": "com.tarikyasar.gotur"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "336988796404-glni7ndlo50i11r1j4571c44jivjq35q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tarikyasar.gotur",
+            "certificate_hash": "3be61303f8d841fb2511a80fb7ceb8c6db1bcdbe"
+          }
+        },
+        {
+          "client_id": "336988796404-8m2091iprosfft32rhga4hpvtmahecev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYaNw2SZG9l7AoMIqODlWK0hqJPeJmu70"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "336988796404-8m2091iprosfft32rhga4hpvtmahecev.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -18,6 +18,15 @@ jobs:
       - android/save-gradle-cache
       - android/save-build-cache
 
+  say-hello:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: "Say hello"
+          command: "echo Hello, World!"
+
 workflows:
   android-test-workflow:
     jobs:
