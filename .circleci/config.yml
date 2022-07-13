@@ -5,7 +5,7 @@ defaults:
     - image: circleci/android:api-26-node
 
 jobs:
-  fastlane-test:
+  fastlane:
     steps:
       - checkout
       - run:
@@ -24,4 +24,4 @@ jobs:
 workflows:
   android-test-workflow:
     jobs:
-      - fastlane-test
+      - fastlane
