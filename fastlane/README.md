@@ -21,7 +21,7 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 [bundle exec] fastlane android distribute
 ```
 
-Our awesome app
+Götür
 
 ### android increment_version
 

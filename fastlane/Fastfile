@@ -5,13 +5,15 @@ platform :android do
     lane :distribute do |options|
         gradle(
             task: 'assemble',
-            build_type: 'Release'
+            build_type: 'Debug'
         )
         firebase_app_distribution(
             app: options[:firebase_app_id],
             testers: "m.tarikyasar@gmail.com",
             release_notes: "Lots of amazing new features to test out!",
-            firebase_cli_token: options[:firebase_token]
+            firebase_cli_token: options[:firebase_token],
+            android_artifact_type: "APK",
+            testers: "m.tarikyasar@gmail.com"
         )
        end
 
