@@ -1,46 +1,27 @@
-version: 2
+version: 2.1
 
 defaults:
   docker:
-    - image: circleci/android:api-28-alpha
-  environment:
-    JVM_OPTS: -Xmx3200m
+    - image: circleci/android:api-26-node
 
 jobs:
-  unit-test:
-    executor:
-      name: android/android-machine
-      resource-class: xlarge
+  fastlane-test:
     steps:
       - checkout
-      - android/restore-gradle-cache
-      - android/restore-build-cache
-      - android/run-tests:
-          test-command: ./gradlew testDebug
-      - android/save-gradle-cache
-      - android/save-build-cache
-
-  deploy-internal:
-    executor: docker
-    steps:
-      - checkout
-      - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      - run:
-          name: Test environment variables
-          command: echo "Firebase App ID -> $FIREBASE_APP_ID" && echo "Firebase Token -> $FIREBASE_TOKEN"
       - run:
           name: Install fastlane
-          command: bundle install
+          command: gem install fastlane
       - run:
-          name: Deploy the app to the internal track
-          command: bundle exec fastlane firebase_app_id:$FIREBASE_APP_ID firebase_token:$FIREBASE_TOKEN
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+          name: Install dependencies
+          command: fastlane install_plugins
+      - run:
+          name: Deploy to firebase
+          command: fastlane distribute firebase_app_id:$FIREBASE_APP_ID firebase_token:$FIREBASE_TOKEN
+    docker:
+      - image: circleci/android:api-26-node
+
 
 workflows:
   android-test-workflow:
     jobs:
-      - deploy-internal
+      - fastlane-test
