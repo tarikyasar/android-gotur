@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+    id "org.sonarqube"
 }
 
 android {
@@ -64,5 +65,17 @@ dependencies {
     // Firebase dependencies
     implementation platform('com.google.firebase:firebase-bom:30.2.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
+}
 
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "MyProject"
+        property "sonar.projectKey", "com.example.myproject"
+        property "sonar.host.url", "http://192.114.1.1:9000"
+        property "sonar.language", "java"
+        property "sonar.sources", "src/main/"
+        property "sonar.login", "username"
+        property "sonar.password", "password"
+    }
 }
